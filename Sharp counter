@@ -1,0 +1,49 @@
+#include <Wire.h> // Enable this line if using Arduino Uno, Mega, etc.
+//#include <TinyWireM.h> // Enable this line if using Adafruit Trinket, Gemma, etc.
+
+
+
+
+const int sensorPin = A0; //analog pin 0
+const int ledPin = 13;  // the pin that the LED is attached to
+
+// vars
+int sensorCounter = 0;   // counter for the number of passager enters in
+int sensorState = 0;     // current state of the sensor
+
+void setup() {
+  // initialize the sensor pin and input
+  pinMode(sensorPin, INPUT);
+  // initialize the LED as an output
+  pinMode(ledPin, OUTPUT);
+  // initialize serial communication
+  Serial.begin(9600);
+
+  }
+
+void loop() {
+  // read the sensor input pin:
+  sensorState = analogRead(sensorPin);
+
+
+  // if sensor is closer than than x distance
+  if (sensorState > 200 ) {
+    
+    sensorCounter++;
+    Serial.println(sensorState);
+    Serial.print("number of counts:  ");
+    Serial.println(sensorCounter);
+   
+    // slow down the output
+    delay(1000);
+  } 
+
+  
+  // turns on the LED every ten counts 
+  if (sensorCounter <= 3) {
+    digitalWrite(ledPin, LOW);
+  } else {
+   digitalWrite(ledPin, HIGH);
+  }
+  
+}
