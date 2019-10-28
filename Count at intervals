@@ -8,7 +8,7 @@ const int sensorPin = A0; //analog pin 0
 const int ledPin = 13;  // the pin that the LED is attached to
 
 // vars
-int sensorCounter = 0;   // counter for the number of passager enters in
+int sensorCounter = 0;   // counter for the number of button presses
 int sensorState = 0;     // current state of the sensor
 
 void setup() {
@@ -20,6 +20,7 @@ void setup() {
   Serial.begin(9600);
 
   }
+
 
 void loop() {
   // read the sensor input pin:
@@ -34,13 +35,14 @@ void loop() {
     Serial.print("number of counts:  ");
     Serial.println(sensorCounter);
    
+    
     // slow down the output
     delay(1000);
   } 
 
   
   // turns on the LED every ten counts 
-  if (sensorCounter <= 3) {
+  if (sensorCounter % 4 == 0) {
     digitalWrite(ledPin, LOW);
   } else {
    digitalWrite(ledPin, HIGH);
